@@ -1,0 +1,42 @@
+CREATE DATABASE IF NOT EXISTS Biblioteca;
+USE Biblioteca;
+
+-- Cria a tabela Livros
+CREATE TABLE Livros (
+    ID_do_livro INT AUTO_INCREMENT PRIMARY KEY,
+    Titulo TEXT,
+    Autor TEXT,
+    Editora TEXT,
+    Ano_de_publicacao INT,
+    ISBN TEXT
+);
+
+-- Crie a tabela Usuarios
+CREATE TABLE Usuarios (
+    ID_do_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    Nome TEXT,
+    Sobrenome TEXT,
+    Endereco TEXT,
+    Email TEXT,
+    Numero_de_telefone TEXT,
+    Funcao TEXT
+);
+
+-- Crie a tabela Emprestimos
+CREATE TABLE Emprestimos (
+    ID_do_emprestimo INT AUTO_INCREMENT PRIMARY KEY,
+    ID_do_livro INT,
+    ID_do_usuario INT,
+    Data_de_emprestimo DATE,
+    Data_de_devolucao DATE,
+    FOREIGN KEY (ID_do_livro) REFERENCES Livros(ID_do_livro),
+    FOREIGN KEY (ID_do_usuario) REFERENCES Usuarios(ID_do_usuario)
+);
+
+-- Recuperar todos os livros emprestados no momento
+SELECT Livros.Titulo, Usuarios.Nome, Usuarios.Sobrenome, Emprestimos.Data_de_emprestimo, Emprestimos.Data_de_devolucao
+FROM Livros
+INNER JOIN Emprestimos ON Livros.ID_do_livro = Emprestimos.ID_do_livro
+INNER JOIN Usuarios ON Usuarios.ID_do_usuario = Emprestimos.ID_do_usuario
+WHERE Emprestimos.Data_de_devolucao IS NULL;
+
