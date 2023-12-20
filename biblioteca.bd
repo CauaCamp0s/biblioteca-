@@ -40,3 +40,81 @@ INNER JOIN Emprestimos ON Livros.ID_do_livro = Emprestimos.ID_do_livro
 INNER JOIN Usuarios ON Usuarios.ID_do_usuario = Emprestimos.ID_do_usuario
 WHERE Emprestimos.Data_de_devolucao IS NULL;
 
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+
+CREATE DATABASE IF NOT EXISTS teca;
+USE teca;
+
+-- Crie a tabela Livros
+CREATE TABLE Livros (
+    ID_do_livro INT AUTO_INCREMENT PRIMARY KEY,
+    Titulo TEXT,
+    Autor TEXT,
+    Editora TEXT,
+    Ano_de_publicacao INT,
+    Quantidade INT  -- Corrected data type for quantity
+);
+
+-- Crie a tabela Usuarios
+CREATE TABLE Usuarios (
+    ID_do_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    Nome TEXT,
+    Sobrenome TEXT,
+    Endereco TEXT,
+    Numero_de_telefone TEXT
+);
+
+-- Crie a tabela Emprestimos
+CREATE TABLE Emprestimos (
+    ID_do_emprestimo INT AUTO_INCREMENT PRIMARY KEY,
+    ID_do_livro INT,
+    ID_do_usuario INT,
+    Data_de_emprestimo DATE,
+    Data_de_devolucao DATE,
+    FOREIGN KEY (ID_do_livro) REFERENCES Livros(ID_do_livro),
+    FOREIGN KEY (ID_do_usuario) REFERENCES Usuarios(ID_do_usuario)
+);
+
+
+
+
+CREATE DATABASE IF NOT EXISTS teca;
+USE teca;
+
+-- Drop the existing Livros table if it exists
+DROP TABLE IF EXISTS Livros;
+
+-- Create the Livros table
+CREATE TABLE Livros (
+    ID_do_livro INT AUTO_INCREMENT PRIMARY KEY,
+    Titulo TEXT,
+    Autor TEXT,
+    Editora TEXT,
+    Ano_de_publicacao INT,
+    Quantidade INT
+);
+
+
+
+CREATE DATABASE IF NOT EXISTS teca;
+USE teca;
+
+-- Drop the existing Emprestimos table if it exists
+DROP TABLE IF EXISTS Emprestimos;
+
+-- Create the Emprestimos table
+CREATE TABLE Emprestimos (
+    ID_do_emprestimo INT AUTO_INCREMENT PRIMARY KEY,
+    ID_do_livro INT,
+    ID_do_usuario INT,
+    Data_de_emprestimo DATE,
+    Data_de_devolucao DATE,
+    FOREIGN KEY (ID_do_livro) REFERENCES Livros(ID_do_livro),
+    FOREIGN KEY (ID_do_usuario) REFERENCES Usuarios(ID_do_usuario)
+);
+
+
